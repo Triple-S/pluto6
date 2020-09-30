@@ -126,134 +126,134 @@ Bool_t PStdData::fillDataBase(void) {
     int pkey = -1, *ii;
     Double_t *dd;
     for (int i=0; i<maxnumpar; i++) {
-//	if ((pkey=base->AddEntry(PStdData::PName[i]))<0) return kFALSE;
-//	Int_t dkey = base->AddListEntry(PStdData::PName[i],"pnmodes", "link",PMDescription [j]);
-	if ((pkey=base->AddListEntry("std_set","snpart","slink",PStdData::PName[i])) < 0) return kFALSE;
-	ii = new int(i);  //never destructed, but called only once!
-	if (!base->SetParamInt (pkey, "pid", ii))
-	    return kFALSE;
-	if (!base->SetParamDouble (pkey, "width", &(PStdData::PWidth[i])))
-	    return kFALSE;
-	if (!base->SetParamDouble (pkey, "mass", &(PStdData::PMass[i])))
-	    return kFALSE;
-	if (PMeson[i])
-	    if (!base->SetParamInt (pkey, "meson", &(PStdData::PMeson[i])))
-		return kFALSE;
-	if (PBaryon[i])
-	    if (!base->SetParamInt (pkey, "baryon", &(PStdData::PBaryon[i])))
-		return kFALSE;
-	if (PLepton[i])
-	    if (!base->SetParamInt (pkey, "lepton", &(PStdData::PLepton[i])))
-		return kFALSE;
-	if (!base->SetParamInt (pkey, "charge", &(PStdData::PCharge[i])))
-	    return kFALSE;
-	if (!base->SetParamInt (pkey, "spin", &(PStdData::PJ[i])))
-	    return kFALSE;
-	if (!base->SetParamInt (pkey, "parity", &(PStdData::PParity[i])))
-	    return kFALSE;
-	if (!base->SetParamInt (pkey, "ispin", &(PStdData::PI[i])))
-	    return kFALSE;
-	if (!base->SetParamInt (pkey, "pythiakf", &(PStdData::Pkf[i])))
-	    return kFALSE;
-	ii = new int(0);  //never destructed, but called only once!
-	//0 means on, -1 means off
-	if (!base->SetParamInt (pkey, "widx", ii))
-	    return kFALSE;
-	ii = new int(0);
-	if (!base->SetParamInt (pkey, "tdepth", ii))
-	    return kFALSE;
-	ii = new int(0);
-	if (!base->SetParamInt (pkey, "hdepth", ii))
-	    return kFALSE;
-	dd = new Double_t(PStdData::PMass[i]-2*PStdData::PWidth[i]); //BUGBUG look to ethreshold later -> only 1st guess!!!
-	if (!base->SetParamDouble (pkey, "ethreshold", dd))
-	    return kFALSE;
+//        if ((pkey=base->AddEntry(PStdData::PName[i]))<0) return kFALSE;
+//        Int_t dkey = base->AddListEntry(PStdData::PName[i],"pnmodes", "link",PMDescription [j]);
+        if ((pkey=base->AddListEntry("std_set","snpart","slink",PStdData::PName[i])) < 0) return kFALSE;
+        ii = new int(i);  //never destructed, but called only once!
+        if (!base->SetParamInt (pkey, "pid", ii))
+            return kFALSE;
+        if (!base->SetParamDouble (pkey, "width", &(PStdData::PWidth[i])))
+            return kFALSE;
+        if (!base->SetParamDouble (pkey, "mass", &(PStdData::PMass[i])))
+            return kFALSE;
+        if (PMeson[i])
+            if (!base->SetParamInt (pkey, "meson", &(PStdData::PMeson[i])))
+                return kFALSE;
+        if (PBaryon[i])
+            if (!base->SetParamInt (pkey, "baryon", &(PStdData::PBaryon[i])))
+                return kFALSE;
+        if (PLepton[i])
+            if (!base->SetParamInt (pkey, "lepton", &(PStdData::PLepton[i])))
+                return kFALSE;
+        if (!base->SetParamInt (pkey, "charge", &(PStdData::PCharge[i])))
+            return kFALSE;
+        if (!base->SetParamInt (pkey, "spin", &(PStdData::PJ[i])))
+            return kFALSE;
+        if (!base->SetParamInt (pkey, "parity", &(PStdData::PParity[i])))
+            return kFALSE;
+        if (!base->SetParamInt (pkey, "ispin", &(PStdData::PI[i])))
+            return kFALSE;
+        if (!base->SetParamInt (pkey, "pythiakf", &(PStdData::Pkf[i])))
+            return kFALSE;
+        ii = new int(0);  //never destructed, but called only once!
+        //0 means on, -1 means off
+        if (!base->SetParamInt (pkey, "widx", ii))
+            return kFALSE;
+        ii = new int(0);
+        if (!base->SetParamInt (pkey, "tdepth", ii))
+            return kFALSE;
+        ii = new int(0);
+        if (!base->SetParamInt (pkey, "hdepth", ii))
+            return kFALSE;
+        dd = new Double_t(PStdData::PMass[i]-2*PStdData::PWidth[i]); //BUGBUG look to ethreshold later -> only 1st guess!!!
+        if (!base->SetParamDouble (pkey, "ethreshold", dd))
+            return kFALSE;
 
-	//Adding Fireballs!
-	char *name = new char[100];
-	sprintf(name, "Fireball: %s", PStdData::PName[i]);
-	if ((pkey=base->AddListEntry("std_set","snpart","slink",name)) < 0) return kFALSE;
-	ii = new int(i+500);  //never destructed, but called only once!
-	if (!base->SetParamInt (pkey, "pid", ii))
-	    return kFALSE;
-	if (!base->SetParamDouble (pkey, "mass", &(PStdData::PMass[i])))
-	    return kFALSE;
-	if (!base->SetParamDouble (pkey, "width", &(PStdData::PWidth[i])))
-	    return kFALSE;
+        //Adding Fireballs!
+        char *name = new char[100];
+        sprintf(name, "Fireball: %s", PStdData::PName[i]);
+        if ((pkey=base->AddListEntry("std_set","snpart","slink",name)) < 0) return kFALSE;
+        ii = new int(i+500);  //never destructed, but called only once!
+        if (!base->SetParamInt (pkey, "pid", ii))
+            return kFALSE;
+        if (!base->SetParamDouble (pkey, "mass", &(PStdData::PMass[i])))
+            return kFALSE;
+        if (!base->SetParamDouble (pkey, "width", &(PStdData::PWidth[i])))
+            return kFALSE;
     }
     
     for (int i=0; i<maxnumpar; i++) {
-//	Int_t pkey=base->getEntry(PStdData::PName[i]);
-	//now the decays
-	int jmin = 0, jmax = PStdData::maxnummodes;
-	jmin = PPosition[i];
-	jmax = jmin+PStdData::PNModes[i];
-	
-	for (int j=jmin; j<jmax; ++j) {
+//        Int_t pkey=base->getEntry(PStdData::PName[i]);
+        //now the decays
+        int jmin = 0, jmax = PStdData::maxnummodes;
+        jmin = PPosition[i];
+        jmax = jmin+PStdData::PNModes[i];
+        
+        for (int j=jmin; j<jmax; ++j) {
 
-	    TString s = PMode[j];  // retrieve decay mode string
+            TString s = PMode[j];  // retrieve decay mode string
 
-	    Int_t dkey = base->AddListEntry(PStdData::PName[i], "pnmodes", "link", PMDescription[j]);
+            Int_t dkey = base->AddListEntry(PStdData::PName[i], "pnmodes", "link", PMDescription[j]);
 
-	    ii = new int(i);
-	    base->SetParamInt (dkey, "ppid", ii); //set parent id
+            ii = new int(i);
+            base->SetParamInt (dkey, "ppid", ii); //set parent id
 
-	    ii = new int(j+1); //Shifted by 1 because 0 is not good
-	    base->SetParamInt (dkey, "didx", ii); //decay mode index
+            ii = new int(j+1); //Shifted by 1 because 0 is not good
+            base->SetParamInt (dkey, "didx", ii); //decay mode index
 
-	    dd = new Double_t(0.); //BUGBUG look to ethreshold
-	    if (!base->SetParamDouble (dkey, "ethreshold", dd))
-		return kFALSE;
+            dd = new Double_t(0.); //BUGBUG look to ethreshold
+            if (!base->SetParamDouble (dkey, "ethreshold", dd))
+                return kFALSE;
 
-	    ii = new int(0);  //never destructed, but called only once!
-	    if (!base->SetParamInt (dkey, "widx", ii))
-		return kFALSE;
-	    
-	    if (!base->SetParamDouble (dkey, "br", &(PStdData::PBR[j])))
-		return kFALSE;
+            ii = new int(0);  //never destructed, but called only once!
+            if (!base->SetParamInt (dkey, "widx", ii))
+                return kFALSE;
+            
+            if (!base->SetParamDouble (dkey, "br", &(PStdData::PBR[j])))
+                return kFALSE;
 
-	    if (!base->SetParamDouble (dkey, "brorig", new Double_t(PStdData::PBR[j])))
-		return kFALSE;
+            if (!base->SetParamDouble (dkey, "brorig", new Double_t(PStdData::PBR[j])))
+                return kFALSE;
 
-	    dd = new Double_t(0.);
-	    if (!base->SetParamDouble (dkey, "ethreshold", dd))
-		return kFALSE;
-	    
-	    dd = new Double_t(0.); //partial width resetted later
-	    if (!base->SetParamDouble (dkey, "width", dd))
-		return kFALSE;
-	    
-	    dd = new Double_t(1.); //sc factor=1.
-	    if (!base->SetParamDouble (dkey, "scfactor", dd))
-		return kFALSE;
+            dd = new Double_t(0.);
+            if (!base->SetParamDouble (dkey, "ethreshold", dd))
+                return kFALSE;
+            
+            dd = new Double_t(0.); //partial width resetted later
+            if (!base->SetParamDouble (dkey, "width", dd))
+                return kFALSE;
+            
+            dd = new Double_t(1.); //sc factor=1.
+            if (!base->SetParamDouble (dkey, "scfactor", dd))
+                return kFALSE;
 
-	    Int_t len = s.Length();
-	    Int_t res = len%3;
-	    Int_t np  = len/3+(res>0);
-	    Int_t pid, k = 0;
-	    for (int ii=0; ii<np; ++ii) {   // loop over product particles
-		Int_t m = (!ii&&res) ? res : 3;  // number of digits in current pid
-		pid = 0;              // reset id
-		for (int jj=1; jj<=m; ++jj) 
-		    pid += (*(s(k+jj-1,1).Data())-48)
-			*int(pow(10.,m-jj));
-		
-		Int_t *pkey = new int(base->GetEntryInt("pid", pid));
-		if (*pkey<0) {
-		    Error("fillDataBase" , "Processing decay: do not find pid %i", pid);
-		}
-		if (ii==0) base->SetParamInt (dkey, "d1",pkey);
-		if (ii==1) base->SetParamInt (dkey, "d2",pkey);
-		if (ii==2) base->SetParamInt (dkey, "d3",pkey);
-		if (ii==3) base->SetParamInt (dkey, "d4",pkey);
-		if (ii==4) base->SetParamInt (dkey, "d5",pkey);
-		if (ii==5) base->SetParamInt (dkey, "d6",pkey);
-		if (ii==6) base->SetParamInt (dkey, "d7",pkey);
-		if (ii>6) Error("fillDataBase" , "More than 7 decay products not supported: %s", PMDescription[j]);
+            Int_t len = s.Length();
+            Int_t res = len%3;
+            Int_t np  = len/3+(res>0);
+            Int_t pid, k = 0;
+            for (int ii=0; ii<np; ++ii) {   // loop over product particles
+                Int_t m = (!ii&&res) ? res : 3;  // number of digits in current pid
+                pid = 0;              // reset id
+                for (int jj=1; jj<=m; ++jj) 
+                    pid += (*(s(k+jj-1,1).Data())-48)
+                        *int(pow(10.,m-jj));
+                
+                Int_t *pkey = new int(base->GetEntryInt("pid", pid));
+                if (*pkey<0) {
+                    Error("fillDataBase" , "Processing decay: do not find pid %i", pid);
+                }
+                if (ii==0) base->SetParamInt (dkey, "d1",pkey);
+                if (ii==1) base->SetParamInt (dkey, "d2",pkey);
+                if (ii==2) base->SetParamInt (dkey, "d3",pkey);
+                if (ii==3) base->SetParamInt (dkey, "d4",pkey);
+                if (ii==4) base->SetParamInt (dkey, "d5",pkey);
+                if (ii==5) base->SetParamInt (dkey, "d6",pkey);
+                if (ii==6) base->SetParamInt (dkey, "d7",pkey);
+                if (ii>6) Error("fillDataBase" , "More than 7 decay products not supported: %s", PMDescription[j]);
 
-		k+=m;
-	    } //end decay products
-	} //end decay mode loop
+                k+=m;
+            } //end decay products
+        } //end decay mode loop
     }
     
     disable = 1;
@@ -264,8 +264,8 @@ Bool_t PStdData::fillDataBase(void) {
 //Please do not touch the tables below
 
 #define nmax 999     // maximum number of supported particles
-#define mnpar 70     // number of particles stored permanently
-#define mnmodes 220  // number of decay modes stored permanently
+#define mnpar 72     // number of particles stored permanently
+#define mnmodes 225  // number of decay modes stored permanently
 
 
 // particle naming convention for use with the PParticle constructor
@@ -283,438 +283,449 @@ const char *PStdData::NAME[mnpar] = {
   "dimuon", "dilepton", "w", "eta'", "sigma",
   "phi", "DP330", "DP33++", "DP33+","DP33-",
   "DS310", "DS31++", "DS31+","DS31-",
-  "NP110", "ND130", "NS110", "J/Psi", "Psi'","pn"};
+  "NP110", "ND130", "NS110", "J/Psi", "Psi'","pn",
+  "Hypertriton", "He4_3749"};
 
 // particle masses (GeV/c**2)
 //const double MASS[mnpar]={
 double PStdData::MASS[mnpar]={
-  /* 0: dummy     */  0.0,            /* 1: Photon    */  0.0,
-  /* 2: Positron  */  0.51099906e-3,  /* 3: Electron  */  0.51099906e-3,
-  /* 4: Neutrino  */  0.0,            /* 5: mu+       */  0.105658389,
-  /* 6: mu-       */  0.105658389,    /* 7: pi0       */  0.1349764,
-  /* 8: pi+       */  0.13956995,     /* 9: pi-       */  0.13956995,
-  /*10: K0 long   */  0.497672,       /*11: K+        */  0.493677,
-  /*12: K-        */  0.493677,       /*13: Neutron   */  0.93956563,
-  /*14: Proton    */  0.93827231,     /*15: Antiproton*/  0.93827231,
-  /*16: K0 short  */  0.497672,       /*17: Eta       */  0.54745,
-  /*18: Lambda    */  1.115684,       /*19: Sigma+    */  1.18937,
-  /*20: Sigma0    */  1.19255,        /*21: Sigma-    */  1.197436,
-  /*22: Xi0       */  1.3149,         /*23: Xi-       */  1.32132,
-  /*24: Omega     */  1.67245,        /*25: Antineutrn*/  0.93956563,
-  /*26: Antilambda*/  1.115684,       /*27: Antisigma-*/  1.18937, //1.197436,
-  /*28: Antisigma0*/  1.19255,        /*29: Antisigma+*/  1.197436, //1.18937,
-  /*30: Antixi0   */  1.3149,         /*31: Antixi+   */  1.32132,
-  /*32: Antiomega+*/  1.67245,        /*33: File      */  0.0,
-  /*34: Delta0    */  1.232,          /*35: Delta++   */  1.232,
-  /*36: Delta+    */  1.232,          /*37: Delta-    */  1.232,
-  /*38: NP11+     */  1.44,           /*39: ND13+     */  1.520,
-  /*40: NS11+     */  1.535,          /*41: rho0      */  0.7699,
-  /*42: rho+      */  0.7699,         /*43: rho-      */  0.7699,
-  /*44: NULL      */  0.0,            /*45: Deuteron  */  1.875613,
-  /*46: Tritium   */  2.80925,        /*47: Alpha     */  3.727417,
-  /*48: NULL      */  0.0,            /*49: He3       */  2.80923,
-  /*50: dimuon    */  0.21131678,     /*51: dilepton  */  0.001022,
-  /*52: omega     */  0.78194,        /*53: eta'      */  0.9577,
-  /*54: sigma     */  0.6,            /*55: phi       */  1.019413,
-  /*56: Delta0*P33*/  1.6,            /*57: Delta++ *P33*/1.6,
-  /*58: Delta+*P33*/  1.6,            /*59: Delta- *P33 */1.6,
-  /*60: Delta0*S31*/  1.62,           /*61: Delta++ *S31*/1.62,
-  /*62: Delta+*S31*/  1.62,           /*63: Delta- *S31 */1.62,
-  /*64: NP110     */  1.44,           /*65: ND130     */  1.520,
-  /*66: NS110     */  1.535,          /*67: J/Psi     */  3.09688,
-  /*68: Psi'      */  3.68596,        /*69: pn        */  2.65
-
+  /* 0: dummy      */  0.0,            /* 1: Photon    */  0.0,
+  /* 2: Positron   */  0.51099906e-3,  /* 3: Electron  */  0.51099906e-3,
+  /* 4: Neutrino   */  0.0,            /* 5: mu+       */  0.105658389,
+  /* 6: mu-        */  0.105658389,    /* 7: pi0       */  0.1349764,
+  /* 8: pi+        */  0.13956995,     /* 9: pi-       */  0.13956995,
+  /*10: K0 long    */  0.497672,       /*11: K+        */  0.493677,
+  /*12: K-         */  0.493677,       /*13: Neutron   */  0.93956563,
+  /*14: Proton     */  0.93827231,     /*15: Antiproton*/  0.93827231,
+  /*16: K0 short   */  0.497672,       /*17: Eta       */  0.54745,
+  /*18: Lambda     */  1.115684,       /*19: Sigma+    */  1.18937,
+  /*20: Sigma0     */  1.19255,        /*21: Sigma-    */  1.197436,
+  /*22: Xi0        */  1.3149,         /*23: Xi-       */  1.32132,
+  /*24: Omega      */  1.67245,        /*25: Antineutrn*/  0.93956563,
+  /*26: Antilambda */  1.115684,       /*27: Antisigma-*/  1.18937, //1.197436,
+  /*28: Antisigma0 */  1.19255,        /*29: Antisigma+*/  1.197436, //1.18937,
+  /*30: Antixi0    */  1.3149,         /*31: Antixi+   */  1.32132,
+  /*32: Antiomega+ */  1.67245,        /*33: File      */  0.0,
+  /*34: Delta0     */  1.232,          /*35: Delta++   */  1.232,
+  /*36: Delta+     */  1.232,          /*37: Delta-    */  1.232,
+  /*38: NP11+      */  1.44,           /*39: ND13+     */  1.520,
+  /*40: NS11+      */  1.535,          /*41: rho0      */  0.7699,
+  /*42: rho+       */  0.7699,         /*43: rho-      */  0.7699,
+  /*44: NULL       */  0.0,            /*45: Deuteron  */  1.875613,
+  /*46: Tritium    */  2.80925,        /*47: Alpha     */  3.727417,
+  /*48: NULL       */  0.0,            /*49: He3       */  2.80923,
+  /*50: dimuon     */  0.21131678,     /*51: dilepton  */  0.001022,
+  /*52: omega      */  0.78194,        /*53: eta'      */  0.9577,
+  /*54: sigma      */  0.6,            /*55: phi       */  1.019413,
+  /*56: Delta0*P33 */  1.6,            /*57: Delta++ *P33*/1.6,
+  /*58: Delta+*P33 */  1.6,            /*59: Delta- *P33 */1.6,
+  /*60: Delta0*S31 */  1.62,           /*61: Delta++ *S31*/1.62,
+  /*62: Delta+*S31 */  1.62,           /*63: Delta- *S31 */1.62,
+  /*64: NP110      */  1.44,           /*65: ND130     */  1.520,
+  /*66: NS110      */  1.535,          /*67: J/Psi     */  3.09688,
+  /*68: Psi'       */  3.68596,        /*69: pn        */  2.65,
+  /*70: Hypertriton*/  2.991131,       /*71: He4_3749  */  3.749
 };
 
 // particle widths (GeV/c**2)
 //const double WIDTH[mnpar]={
 double PStdData::WIDTH[mnpar]={
-  /* 0: dummy     */  0.0,             /* 1: Photon    */  0.0,
-  /* 2: Positron  */  0.0,             /* 3: Electron  */  0.0,
-  /* 4: Neutrino  */  0.0,             /* 5: mu+       */  double(PStdData::hbar)/2.19703e-6,
-  /* 6: mu-       */  double(PStdData::hbar)/2.19703e-6, /* 7: pi0       */  double(PStdData::hbar)/8.4e-17,
-  /* 8: pi+       */  double(PStdData::hbar)/2.6033e-8,  /* 9: pi-       */  double(PStdData::hbar)/2.6033e-8,
-  /*10: K0 long   */  double(PStdData::hbar)/5.17e-8,    /*11: K+        */  double(PStdData::hbar)/1.2386e-8,
-  /*12: K-        */  double(PStdData::hbar)/1.23861e-8, /*13: Neutron   */  double(PStdData::hbar)/887.,
-  /*14: Proton    */  0.0,             /*15: Antiproton*/  0.0,
-  /*16: K0 short  */  double(PStdData::hbar)/8.927e-11,  /*17: eta       */  1.29e-6,
-  /*18: Lambda    */  double(PStdData::hbar)/2.632e-10,  /*19: Sigma+    */  double(PStdData::hbar)/7.99e-11,
-  /*20: Sigma0    */  double(PStdData::hbar)/7.4e-20,    /*21: Sigma-    */  double(PStdData::hbar)/1.479e-10,
-  /*22: Xi0       */  double(PStdData::hbar)/2.9e-10,    /*23: Xi-       */  double(PStdData::hbar)/1.639e-10,
-  /*24: Omega-    */  double(PStdData::hbar)/8.22e-11,   /*25: Antineutrn*/  double(PStdData::hbar)/887.,
-  /*26: Antilambda*/  double(PStdData::hbar)/2.632e-10,  /*27: Antisigma-*/  double(PStdData::hbar)/7.99e-11,
-  /*28: Antisigma0*/  double(PStdData::hbar)/7.4e-20,    /*29: Antisigma+*/  double(PStdData::hbar)/1.479e-10,
-  /*30: Antixi0   */  double(PStdData::hbar)/2.9e-10,    /*31: Antixi+   */  double(PStdData::hbar)/1.639e-10,
-  /*32: Antiomega+*/  double(PStdData::hbar)/8.22e-11,   /*33: File      */  0.0,
-  /*34: Delta0    */  0.12,            /*35: Delta++   */  0.12,
-  /*36: Delta+    */  0.12,            /*37: Delta-    */  0.12,
-  /*38: NP11+     */  0.35,            /*39: ND13+     */  0.12,
-  /*40: NS11+     */  0.15,            /*41: rho0      */  0.1507,
-  /*42: rho+      */  0.1507,          /*43: rho-      */  0.1507,
-  /*44: NULL      */  0.0,             /*45: Deuteron  */  0.0,
-  /*46: Tritium   */  0.0,             /*47: Alpha     */  0.0,
-  /*48: NULL      */  0.0,             /*49: He3       */  0.0,
-  /*50: dimuon    */  0.0,             /*51: dilepton  */  0.0,
-  /*52: omega     */  0.00843,         /*53: eta'      */  0.000201,
-  /*54: sigma     */  0.5,             /*55: phi       */  0.00443,
-  /*56: Delta0*P33*/  0.35,            /*57: Delta++ *P33*/0.35,
-  /*58: Delta+*P33*/  0.35,            /*59: Delta- *P33 */0.35,
-  /*60: Delta0*S31*/  0.15,            /*61: Delta++ *S31*/0.15,
-  /*62: Delta+*S31*/  0.15,            /*63: Delta- *S31 */0.15,
-  /*64: NP110     */  0.35,            /*65: ND130      */ 0.12,
-  /*66: NS110     */  0.15,            /*67: J/Psi      */ 0.000087,
-  /*68: Psi'      */ 0.000277,         /*69: pn         */ 0.5
+  /* 0: dummy      */  0.0,             /* 1: Photon    */  0.0,
+  /* 2: Positron   */  0.0,             /* 3: Electron  */  0.0,
+  /* 4: Neutrino   */  0.0,             /* 5: mu+       */  double(PStdData::hbar)/2.19703e-6,
+  /* 6: mu-        */  double(PStdData::hbar)/2.19703e-6, /* 7: pi0       */  double(PStdData::hbar)/8.4e-17,
+  /* 8: pi+        */  double(PStdData::hbar)/2.6033e-8,  /* 9: pi-       */  double(PStdData::hbar)/2.6033e-8,
+  /*10: K0 long    */  double(PStdData::hbar)/5.17e-8,    /*11: K+        */  double(PStdData::hbar)/1.2386e-8,
+  /*12: K-         */  double(PStdData::hbar)/1.23861e-8, /*13: Neutron   */  double(PStdData::hbar)/887.,
+  /*14: Proton     */  0.0,             /*15: Antiproton*/  0.0,
+  /*16: K0 short   */  double(PStdData::hbar)/8.927e-11,  /*17: eta       */  1.29e-6,
+  /*18: Lambda     */  double(PStdData::hbar)/2.632e-10,  /*19: Sigma+    */  double(PStdData::hbar)/7.99e-11,
+  /*20: Sigma0     */  double(PStdData::hbar)/7.4e-20,    /*21: Sigma-    */  double(PStdData::hbar)/1.479e-10,
+  /*22: Xi0        */  double(PStdData::hbar)/2.9e-10,    /*23: Xi-       */  double(PStdData::hbar)/1.639e-10,
+  /*24: Omega-     */  double(PStdData::hbar)/8.22e-11,   /*25: Antineutrn*/  double(PStdData::hbar)/887.,
+  /*26: Antilambda */  double(PStdData::hbar)/2.632e-10,  /*27: Antisigma-*/  double(PStdData::hbar)/7.99e-11,
+  /*28: Antisigma0 */  double(PStdData::hbar)/7.4e-20,    /*29: Antisigma+*/  double(PStdData::hbar)/1.479e-10,
+  /*30: Antixi0    */  double(PStdData::hbar)/2.9e-10,    /*31: Antixi+   */  double(PStdData::hbar)/1.639e-10,
+  /*32: Antiomega+ */  double(PStdData::hbar)/8.22e-11,   /*33: File      */  0.0,
+  /*34: Delta0     */  0.12,            /*35: Delta++   */  0.12,
+  /*36: Delta+     */  0.12,            /*37: Delta-    */  0.12,
+  /*38: NP11+      */  0.35,            /*39: ND13+     */  0.12,
+  /*40: NS11+      */  0.15,            /*41: rho0      */  0.1507,
+  /*42: rho+       */  0.1507,          /*43: rho-      */  0.1507,
+  /*44: NULL       */  0.0,             /*45: Deuteron  */  0.0,
+  /*46: Tritium    */  0.0,             /*47: Alpha     */  0.0,
+  /*48: NULL       */  0.0,             /*49: He3       */  0.0,
+  /*50: dimuon     */  0.0,             /*51: dilepton  */  0.0,
+  /*52: omega      */  0.00843,         /*53: eta'      */  0.000201,
+  /*54: sigma      */  0.5,             /*55: phi       */  0.00443,
+  /*56: Delta0*P33 */  0.35,            /*57: Delta++ *P33*/0.35,
+  /*58: Delta+*P33 */  0.35,            /*59: Delta- *P33 */0.35,
+  /*60: Delta0*S31 */  0.15,            /*61: Delta++ *S31*/0.15,
+  /*62: Delta+*S31 */  0.15,            /*63: Delta- *S31 */0.15,
+  /*64: NP110      */  0.35,            /*65: ND130      */ 0.12,
+  /*66: NS110      */  0.15,            /*67: J/Psi      */ 0.000087,
+  /*68: Psi'       */  0.000277,        /*69: pn         */ 0.5,
+  /*70: Hypertriton*/  double(PStdData::hbar)/2.16e-10,   /*71: He4_3749  */ double(PStdData::hbar)/7.4e-20
 };
 
 // Pythia6 KF code
 const int PStdData::PYTHIAKF[mnpar]={
-  /* 0: dummy     */   0,            /* 1: Photon    */  22,
-  /* 2: Positron  */ -11,            /* 3: Electron  */  11,
-  /* 4: Neutrino  */  12,            /* 5: mu+       */ -13,
-  /* 6: mu-       */  13,            /* 7: pi0       */ 111,
-  /* 8: pi+       */ 211,            /* 9: pi-       */-211,
-  /*10: K0 long   */ 130,            /*11: K+        */ 321,
-  /*12: K-        */-321,            /*13: Neutron   */2112,
-  /*14: Proton    */2212,            /*15: Antiproton*/-2212,
-  /*16: K0 short  */ 310,            /*17: eta       */ 221,
-  /*18: Lambda    */3122,            /*19: Sigma+    */3222,
-  /*20: Sigma0    */3212,            /*21: Sigma-    */3112,
-  /*22: Xi0       */3322,            /*23: Xi-       */3312,
-  /*24: Omega-    */3334,            /*25: Antineutrn*/-2112,
-  /*26: Antilambda*/-3122,           /*27: Antisigma-*/-3112,
-  /*28: Antisigma0*/-3212,           /*29: Antisigma+*/-3222,
-  /*30: Antixi0   */-3322,           /*31: Antixi+   */-3312,
-  /*32: Antiomega+*/-3334,           /*33: File      */  0,
-  /*34: Delta0    */2114,            /*35: Delta++   */2224,
-  /*36: Delta+    */2214,            /*37: Delta-    */1114,
-  /*38: NP11+     */  0,             /*39: ND13+     */  0,
-  /*40: NS11+     */  0,             /*41: rho0      */ 113,
-  /*42: rho+      */ 213,            /*43: rho-      */-213,
-  /*44: NULL      */  0,             /*45: Deuteron  */  0,
-  /*46: Tritium   */  0,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  0,
-  /*50: dimuon    */  0,             /*51: dilepton  */  0,
-  /*52: omega     */ 223,            /*53: eta'      */ 331,
-  /*54: sigma     */  0,             /*55: phi       */ 333,
-  /*56: Delta0*P33*/  0,             /*57: Delta++ *P33*/0,
-  /*58: Delta+*P33*/  0,             /*59: Delta- *P33 */0,
-  /*60: Delta0*S31*/  0,             /*61: Delta++ *S31*/0,
-  /*62: Delta+*S31*/  0,             /*63: Delta- *S31 */0,
-  /*64: NP110     */  0,             /*65: ND130     */  0,
-  /*66: NS110     */  0,             /*67: J/Psi     */ 443,
-  /*68: Psi'      */  0,             /*69: pn        */  0
+  /* 0: dummy      */   0,            /* 1: Photon    */  22,
+  /* 2: Positron   */ -11,            /* 3: Electron  */  11,
+  /* 4: Neutrino   */  12,            /* 5: mu+       */ -13,
+  /* 6: mu-        */  13,            /* 7: pi0       */ 111,
+  /* 8: pi+        */ 211,            /* 9: pi-       */-211,
+  /*10: K0 long    */ 130,            /*11: K+        */ 321,
+  /*12: K-         */-321,            /*13: Neutron   */2112,
+  /*14: Proton     */2212,            /*15: Antiproton*/-2212,
+  /*16: K0 short   */ 310,            /*17: eta       */ 221,
+  /*18: Lambda     */3122,            /*19: Sigma+    */3222,
+  /*20: Sigma0     */3212,            /*21: Sigma-    */3112,
+  /*22: Xi0        */3322,            /*23: Xi-       */3312,
+  /*24: Omega-     */3334,            /*25: Antineutrn*/-2112,
+  /*26: Antilambda */-3122,           /*27: Antisigma-*/-3112,
+  /*28: Antisigma0 */-3212,           /*29: Antisigma+*/-3222,
+  /*30: Antixi0    */-3322,           /*31: Antixi+   */-3312,
+  /*32: Antiomega+ */-3334,           /*33: File      */  0,
+  /*34: Delta0     */2114,            /*35: Delta++   */2224,
+  /*36: Delta+     */2214,            /*37: Delta-    */1114,
+  /*38: NP11+      */  0,             /*39: ND13+     */  0,
+  /*40: NS11+      */  0,             /*41: rho0      */ 113,
+  /*42: rho+       */ 213,            /*43: rho-      */-213,
+  /*44: NULL       */  0,             /*45: Deuteron  */  0,
+  /*46: Tritium    */  0,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  0,
+  /*50: dimuon     */  0,             /*51: dilepton  */  0,
+  /*52: omega      */ 223,            /*53: eta'      */ 331,
+  /*54: sigma      */  0,             /*55: phi       */ 333,
+  /*56: Delta0*P33 */  0,             /*57: Delta++ *P33*/0,
+  /*58: Delta+*P33 */  0,             /*59: Delta- *P33 */0,
+  /*60: Delta0*S31 */  0,             /*61: Delta++ *S31*/0,
+  /*62: Delta+*S31 */  0,             /*63: Delta- *S31 */0,
+  /*64: NP110      */  0,             /*65: ND130     */  0,
+  /*66: NS110      */  0,             /*67: J/Psi     */ 443,
+  /*68: Psi'       */  0,             /*69: pn        */  0,
+  /*70: Hypertriton*/  0,             /*71: He4_3749  */  0
 };
 
 // "is Meson" flag
 const int PStdData::MESON[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  0,
-  /* 2: Positron  */  0,             /* 3: Electron  */  0,
-  /* 4: Neutrino  */  0,             /* 5: mu+       */  0,
-  /* 6: mu-       */  0,             /* 7: pi0       */  1,
-  /* 8: pi+       */  1,             /* 9: pi-       */  1,
-  /*10: K0 long   */  1,             /*11: K+        */  1,
-  /*12: K-        */  1,             /*13: Neutron   */  0,
-  /*14: Proton    */  0,             /*15: Antiproton*/  0,
-  /*16: K0 short  */  1,             /*17: eta       */  1,
-  /*18: Lambda    */  0,             /*19: Sigma+    */  0,
-  /*20: Sigma0    */  0,             /*21: Sigma-    */  0,
-  /*22: Xi0       */  0,             /*23: Xi-       */  0,
-  /*24: Omega-    */  0,             /*25: Antineutrn*/  0,
-  /*26: Antilambda*/  0,             /*27: Antisigma-*/  0,
-  /*28: Antisigma0*/  0,             /*29: Antisigma+*/  0,
-  /*30: Antixi0   */  0,             /*31: Antixi+   */  0,
-  /*32: Antiomega+*/  0,             /*33: File      */  0,
-  /*34: Delta0    */  0,             /*35: Delta++   */  0,
-  /*36: Delta+    */  0,             /*37: Delta-    */  0,
-  /*38: NP11+     */  0,             /*39: ND13+     */  0,
-  /*40: NS11+     */  0,             /*41: rho0      */  1,
-  /*42: rho+      */  1,             /*43: rho-      */  1,
-  /*44: NULL      */  0,             /*45: Deuteron  */  0,
-  /*46: Tritium   */  0,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  0,
-  /*50: dimuon    */  0,             /*51: dilepton  */  0,
-  /*52: omega     */  1,             /*53: eta'      */  1,
-  /*54: sigma     */  1,             /*55: phi       */  1,
-  /*56: Delta0*P33*/  0,             /*57: Delta++ *P33*/0,
-  /*58: Delta+*P33*/  0,             /*59: Delta- *P33 */0,
-  /*60: Delta0*S31*/  0,             /*61: Delta++ *S31*/0,
-  /*62: Delta+*S31*/  0,             /*63: Delta- *S31 */0,
-  /*64: NP110     */  0,             /*65: ND130     */  0,
-  /*66: NS110     */  0,             /*67: J/Psi     */  1,
-  /*68: Psi'      */  1,             /*69: pn        */  0
+  /* 0: dummy      */  0,             /* 1: Photon    */  0,
+  /* 2: Positron   */  0,             /* 3: Electron  */  0,
+  /* 4: Neutrino   */  0,             /* 5: mu+       */  0,
+  /* 6: mu-        */  0,             /* 7: pi0       */  1,
+  /* 8: pi+        */  1,             /* 9: pi-       */  1,
+  /*10: K0 long    */  1,             /*11: K+        */  1,
+  /*12: K-         */  1,             /*13: Neutron   */  0,
+  /*14: Proton     */  0,             /*15: Antiproton*/  0,
+  /*16: K0 short   */  1,             /*17: eta       */  1,
+  /*18: Lambda     */  0,             /*19: Sigma+    */  0,
+  /*20: Sigma0     */  0,             /*21: Sigma-    */  0,
+  /*22: Xi0        */  0,             /*23: Xi-       */  0,
+  /*24: Omega-     */  0,             /*25: Antineutrn*/  0,
+  /*26: Antilambda */  0,             /*27: Antisigma-*/  0,
+  /*28: Antisigma0 */  0,             /*29: Antisigma+*/  0,
+  /*30: Antixi0    */  0,             /*31: Antixi+   */  0,
+  /*32: Antiomega+ */  0,             /*33: File      */  0,
+  /*34: Delta0     */  0,             /*35: Delta++   */  0,
+  /*36: Delta+     */  0,             /*37: Delta-    */  0,
+  /*38: NP11+      */  0,             /*39: ND13+     */  0,
+  /*40: NS11+      */  0,             /*41: rho0      */  1,
+  /*42: rho+       */  1,             /*43: rho-      */  1,
+  /*44: NULL       */  0,             /*45: Deuteron  */  0,
+  /*46: Tritium    */  0,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  0,
+  /*50: dimuon     */  0,             /*51: dilepton  */  0,
+  /*52: omega      */  1,             /*53: eta'      */  1,
+  /*54: sigma      */  1,             /*55: phi       */  1,
+  /*56: Delta0*P33 */  0,             /*57: Delta++ *P33*/0,
+  /*58: Delta+*P33 */  0,             /*59: Delta- *P33 */0,
+  /*60: Delta0*S31 */  0,             /*61: Delta++ *S31*/0,
+  /*62: Delta+*S31 */  0,             /*63: Delta- *S31 */0,
+  /*64: NP110      */  0,             /*65: ND130     */  0,
+  /*66: NS110      */  0,             /*67: J/Psi     */  1,
+  /*68: Psi'       */  1,             /*69: pn        */  0,
+  /*70: Hypertriton*/  0,             /*71: He4_3749  */  0
 };
 
 // Baryon number
 const int PStdData::BARYON[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  0,
-  /* 2: Positron  */  0,             /* 3: Electron  */  0,
-  /* 4: Neutrino  */  0,             /* 5: mu+       */  0,
-  /* 6: mu-       */  0,             /* 7: pi0       */  0,
-  /* 8: pi+       */  0,             /* 9: pi-       */  0,
-  /*10: K0 long   */  0,             /*11: K+        */  0,
-  /*12: K-        */  0,             /*13: Neutron   */  1,
-  /*14: Proton    */  1,             /*15: Antiproton*/ -1,
-  /*16: K0 short  */  0,             /*17: eta       */  0,
-  /*18: Lambda    */  1,             /*19: Sigma+    */  1,
-  /*20: Sigma0    */  1,             /*21: Sigma-    */  1,
-  /*22: Xi0       */  1,             /*23: Xi-       */  1,
-  /*24: Omega-    */  1,             /*25: Antineutrn*/ -1,
-  /*26: Antilambda*/ -1,             /*27: Antisigma-*/ -1,
-  /*28: Antisigma0*/ -1,             /*29: Antisigma+*/ -1,
-  /*30: Antixi0   */ -1,             /*31: Antixi+   */ -1,
-  /*32: Antiomega+*/ -1,             /*33: File      */  0,
-  /*34: Delta0    */  1,             /*35: Delta++   */  1,
-  /*36: Delta+    */  1,             /*37: Delta-    */  1,
-  /*38: NP11+     */  1,             /*39: ND13+     */  1,
-  /*40: NS11+     */  1,             /*41: rho0      */  0,
-  /*42: rho+      */  0,             /*43: rho-      */  0,
-  /*44: NULL      */  0,             /*45: Deuteron  */  2,
-  /*46: Tritium   */  3,             /*47: Alpha     */  4,
-  /*48: NULL      */  0,             /*49: He3       */  3,
-  /*50: dimuon    */  0,             /*51: dilepton  */  0,
-  /*52: omega     */  0,             /*53: eta'      */  0,
-  /*54: sigma     */  0,             /*55: phi       */  0,
-  /*56: Delta0*P33*/  1,             /*57: Delta++ *P33*/1,
-  /*58: Delta+*P33*/  1,             /*59: Delta- *P33 */1,
-  /*60: Delta0*S31*/  1,             /*61: Delta++ *S31*/1,
-  /*62: Delta+*S31*/  1,             /*63: Delta- *S31 */1,
-  /*64: NP110     */  1,             /*65: ND130     */  1,
-  /*66: NS110     */  1,             /*67: J/Psi     */  0,
-  /*68: Psi'      */  0,             /*69: pn        */  2
+  /* 0: dummy      */  0,             /* 1: Photon    */  0,
+  /* 2: Positron   */  0,             /* 3: Electron  */  0,
+  /* 4: Neutrino   */  0,             /* 5: mu+       */  0,
+  /* 6: mu-        */  0,             /* 7: pi0       */  0,
+  /* 8: pi+        */  0,             /* 9: pi-       */  0,
+  /*10: K0 long    */  0,             /*11: K+        */  0,
+  /*12: K-         */  0,             /*13: Neutron   */  1,
+  /*14: Proton     */  1,             /*15: Antiproton*/ -1,
+  /*16: K0 short   */  0,             /*17: eta       */  0,
+  /*18: Lambda     */  1,             /*19: Sigma+    */  1,
+  /*20: Sigma0     */  1,             /*21: Sigma-    */  1,
+  /*22: Xi0        */  1,             /*23: Xi-       */  1,
+  /*24: Omega-     */  1,             /*25: Antineutrn*/ -1,
+  /*26: Antilambda */ -1,             /*27: Antisigma-*/ -1,
+  /*28: Antisigma0 */ -1,             /*29: Antisigma+*/ -1,
+  /*30: Antixi0    */ -1,             /*31: Antixi+   */ -1,
+  /*32: Antiomega+ */ -1,             /*33: File      */  0,
+  /*34: Delta0     */  1,             /*35: Delta++   */  1,
+  /*36: Delta+     */  1,             /*37: Delta-    */  1,
+  /*38: NP11+      */  1,             /*39: ND13+     */  1,
+  /*40: NS11+      */  1,             /*41: rho0      */  0,
+  /*42: rho+       */  0,             /*43: rho-      */  0,
+  /*44: NULL       */  0,             /*45: Deuteron  */  2,
+  /*46: Tritium    */  3,             /*47: Alpha     */  4,
+  /*48: NULL       */  0,             /*49: He3       */  3,
+  /*50: dimuon     */  0,             /*51: dilepton  */  0,
+  /*52: omega      */  0,             /*53: eta'      */  0,
+  /*54: sigma      */  0,             /*55: phi       */  0,
+  /*56: Delta0*P33 */  1,             /*57: Delta++ *P33*/1,
+  /*58: Delta+*P33 */  1,             /*59: Delta- *P33 */1,
+  /*60: Delta0*S31 */  1,             /*61: Delta++ *S31*/1,
+  /*62: Delta+*S31 */  1,             /*63: Delta- *S31 */1,
+  /*64: NP110      */  1,             /*65: ND130     */  1,
+  /*66: NS110      */  1,             /*67: J/Psi     */  0,
+  /*68: Psi'       */  0,             /*69: pn        */  2,
+  /*70: Hypertriton*/  3,             /*71: He4_3749  */  4
 };
 
 // Lepton number
 const int PStdData::LEPTON[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  0,
-  /* 2: Positron  */ -1,             /* 3: Electron  */  1,
-  /* 4: Neutrino  */  1,             /* 5: mu+       */ -1,
-  /* 6: mu-       */  1,             /* 7: pi0       */  0,
-  /* 8: pi+       */  0,             /* 9: pi-       */  0,
-  /*10: K0 long   */  0,             /*11: K+        */  0,
-  /*12: K-        */  0,             /*13: Neutron   */  0,
-  /*14: Proton    */  0,             /*15: Antiproton*/  0,
-  /*16: K0 short  */  0,             /*17: eta       */  0,
-  /*18: Lambda    */  0,             /*19: Sigma+    */  0,
-  /*20: Sigma0    */  0,             /*21: Sigma-    */  0,
-  /*22: Xi0       */  0,             /*23: Xi-       */  0,
-  /*24: Omega-    */  0,             /*25: Antineutrn*/  0,
-  /*26: Antilambda*/  0,             /*27: Antisigma-*/  0,
-  /*28: Antisigma0*/  0,             /*29: Antisigma+*/  0,
-  /*30: Antixi0   */  0,             /*31: Antixi+   */  0,
-  /*32: Antiomega+*/  0,             /*33: File      */  0,
-  /*34: Delta0    */  0,             /*35: Delta++   */  0,
-  /*36: Delta+    */  0,             /*37: Delta-    */  0,
-  /*38: NP11+     */  0,             /*39: ND13+     */  0,
-  /*40: NS11+     */  0,             /*41: rho0      */  0,
-  /*42: rho+      */  0,             /*43: rho-      */  0,
-  /*44: NULL      */  0,             /*45: Deuteron  */  0,
-  /*46: Tritium   */  0,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  0,
-  /*50: dimuon    */  0,             /*51: dilepton  */  0,
-  /*52: omega     */  0,             /*53: eta'      */  0,
-  /*54: sigma     */  0,             /*55: phi       */  0,
-  /*56: Delta0*P33*/  0,             /*57: Delta++ *P33*/0,
-  /*58: Delta+*P33*/  0,             /*59: Delta- *P33 */0,
-  /*60: Delta0*S31*/  0,             /*61: Delta++ *S31*/0,
-  /*62: Delta+*S31*/  0,             /*63: Delta- *S31 */0,
-  /*64: NP110     */  0,             /*65: ND130     */  0,
-  /*66: NS110     */  0,             /*67: J/Psi     */  0,
-  /*68: Psi'      */  0,             /*69: pn        */  0
+  /* 0: dummy      */  0,             /* 1: Photon    */  0,
+  /* 2: Positron   */ -1,             /* 3: Electron  */  1,
+  /* 4: Neutrino   */  1,             /* 5: mu+       */ -1,
+  /* 6: mu-        */  1,             /* 7: pi0       */  0,
+  /* 8: pi+        */  0,             /* 9: pi-       */  0,
+  /*10: K0 long    */  0,             /*11: K+        */  0,
+  /*12: K-         */  0,             /*13: Neutron   */  0,
+  /*14: Proton     */  0,             /*15: Antiproton*/  0,
+  /*16: K0 short   */  0,             /*17: eta       */  0,
+  /*18: Lambda     */  0,             /*19: Sigma+    */  0,
+  /*20: Sigma0     */  0,             /*21: Sigma-    */  0,
+  /*22: Xi0        */  0,             /*23: Xi-       */  0,
+  /*24: Omega-     */  0,             /*25: Antineutrn*/  0,
+  /*26: Antilambda */  0,             /*27: Antisigma-*/  0,
+  /*28: Antisigma0 */  0,             /*29: Antisigma+*/  0,
+  /*30: Antixi0    */  0,             /*31: Antixi+   */  0,
+  /*32: Antiomega+ */  0,             /*33: File      */  0,
+  /*34: Delta0     */  0,             /*35: Delta++   */  0,
+  /*36: Delta+     */  0,             /*37: Delta-    */  0,
+  /*38: NP11+      */  0,             /*39: ND13+     */  0,
+  /*40: NS11+      */  0,             /*41: rho0      */  0,
+  /*42: rho+       */  0,             /*43: rho-      */  0,
+  /*44: NULL       */  0,             /*45: Deuteron  */  0,
+  /*46: Tritium    */  0,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  0,
+  /*50: dimuon     */  0,             /*51: dilepton  */  0,
+  /*52: omega      */  0,             /*53: eta'      */  0,
+  /*54: sigma      */  0,             /*55: phi       */  0,
+  /*56: Delta0*P33 */  0,             /*57: Delta++ *P33*/0,
+  /*58: Delta+*P33 */  0,             /*59: Delta- *P33 */0,
+  /*60: Delta0*S31 */  0,             /*61: Delta++ *S31*/0,
+  /*62: Delta+*S31 */  0,             /*63: Delta- *S31 */0,
+  /*64: NP110      */  0,             /*65: ND130     */  0,
+  /*66: NS110      */  0,             /*67: J/Psi     */  0,
+  /*68: Psi'       */  0,             /*69: pn        */  0,
+  /*70: Hypertriton*/  0,             /*71: He4_3749  */  0
 };
 
 // Particle charge
 const int PStdData::CHARGE[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  0,
-  /* 2: Positron  */  1,             /* 3: Electron  */ -1,
-  /* 4: Neutrino  */  0,             /* 5: mu+       */  1,
-  /* 6: mu-       */ -1,             /* 7: pi0       */  0,
-  /* 8: pi+       */  1,             /* 9: pi-       */ -1,
-  /*10: K0 long   */  0,             /*11: K+        */  1,
-  /*12: K-        */ -1,             /*13: Neutron   */  0,
-  /*14: Proton    */  1,             /*15: Antiproton*/ -1,
-  /*16: K0 short  */  0,             /*17: eta       */  0,
-  /*18: Lambda    */  0,             /*19: Sigma+    */  1,
-  /*20: Sigma0    */  0,             /*21: Sigma-    */ -1,
-  /*22: Xi0       */  0,             /*23: Xi-       */ -1,
-  /*24: Omega-    */ -1,             /*25: Antineutrn*/  0,
-  /*26: Antilambda*/  0,             /*27: Antisigma-*/ -1,
-  /*28: Antisigma0*/  0,             /*29: Antisigma+*/  1,
-  /*30: Antixi0   */  0,             /*31: Antixi+   */  1,
-  /*32: Antiomega+*/  1,             /*33: File      */  0,
-  /*34: Delta0    */  0,             /*35: Delta++   */  2,
-  /*36: Delta+    */  1,             /*37: Delta-    */ -1,
-  /*38: NP11+     */  1,             /*39: ND13+     */  1,
-  /*40: NS11+     */  1,             /*41: rho0      */  0,
-  /*42: rho+      */  1,             /*43: rho-      */ -1,
-  /*44: NULL      */  0,             /*45: Deuteron  */  1,
-  /*46: Tritium   */  1,             /*47: Alpha     */  2,
-  /*48: NULL      */  0,             /*49: He3       */  2,
-  /*50: dimuon    */  0,             /*51: dilepton  */  0,
-  /*52: omega     */  0,             /*53: eta'      */  0,
-  /*54: sigma     */  0,             /*55: phi       */  0,
-  /*56: Delta0*P33*/  0,             /*57: Delta++ *P33*/2,
-  /*58: Delta+*P33*/  1,             /*59: Delta- *P33 */-1,
-  /*60: Delta0*S31*/  0,             /*61: Delta++ *S31*/2,
-  /*62: Delta+*S31*/  1,             /*63: Delta- *S31 */-1,
-  /*64: NP110     */  0,             /*65: ND130     */  0,
-  /*66: NS110     */  0,             /*67: J/Psi     */  0,
-  /*68: Psi'      */  0,             /*69: pn        */  1
+  /* 0: dummy      */  0,             /* 1: Photon    */  0,
+  /* 2: Positron   */  1,             /* 3: Electron  */ -1,
+  /* 4: Neutrino   */  0,             /* 5: mu+       */  1,
+  /* 6: mu-        */ -1,             /* 7: pi0       */  0,
+  /* 8: pi+        */  1,             /* 9: pi-       */ -1,
+  /*10: K0 long    */  0,             /*11: K+        */  1,
+  /*12: K-         */ -1,             /*13: Neutron   */  0,
+  /*14: Proton     */  1,             /*15: Antiproton*/ -1,
+  /*16: K0 short   */  0,             /*17: eta       */  0,
+  /*18: Lambda     */  0,             /*19: Sigma+    */  1,
+  /*20: Sigma0     */  0,             /*21: Sigma-    */ -1,
+  /*22: Xi0        */  0,             /*23: Xi-       */ -1,
+  /*24: Omega-     */ -1,             /*25: Antineutrn*/  0,
+  /*26: Antilambda */  0,             /*27: Antisigma-*/ -1,
+  /*28: Antisigma0 */  0,             /*29: Antisigma+*/  1,
+  /*30: Antixi0    */  0,             /*31: Antixi+   */  1,
+  /*32: Antiomega+ */  1,             /*33: File      */  0,
+  /*34: Delta0     */  0,             /*35: Delta++   */  2,
+  /*36: Delta+     */  1,             /*37: Delta-    */ -1,
+  /*38: NP11+      */  1,             /*39: ND13+     */  1,
+  /*40: NS11+      */  1,             /*41: rho0      */  0,
+  /*42: rho+       */  1,             /*43: rho-      */ -1,
+  /*44: NULL       */  0,             /*45: Deuteron  */  1,
+  /*46: Tritium    */  1,             /*47: Alpha     */  2,
+  /*48: NULL       */  0,             /*49: He3       */  2,
+  /*50: dimuon     */  0,             /*51: dilepton  */  0,
+  /*52: omega      */  0,             /*53: eta'      */  0,
+  /*54: sigma      */  0,             /*55: phi       */  0,
+  /*56: Delta0*P33 */  0,             /*57: Delta++ *P33*/2,
+  /*58: Delta+*P33 */  1,             /*59: Delta- *P33 */-1,
+  /*60: Delta0*S31 */  0,             /*61: Delta++ *S31*/2,
+  /*62: Delta+*S31 */  1,             /*63: Delta- *S31 */-1,
+  /*64: NP110      */  0,             /*65: ND130     */  0,
+  /*66: NS110      */  0,             /*67: J/Psi     */  0,
+  /*68: Psi'       */  0,             /*69: pn        */  1,
+  /*70: Hypertriton*/  1,             /*71: He4_3749  */  2
 };
 
 // 2 x angular momentum
 const int PStdData::SPIN[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  2,
-  /* 2: Positron  */  1,             /* 3: Electron  */  1,
-  /* 4: Neutrino  */  1,             /* 5: mu+       */  1,
-  /* 6: mu-       */  1,             /* 7: pi0       */  0,
-  /* 8: pi+       */  0,             /* 9: pi-       */  0,
-  /*10: K0 long   */  0,             /*11: K+        */  0,
-  /*12: K-        */  0,             /*13: Neutron   */  1,
-  /*14: Proton    */  1,             /*15: Antiproton*/  1,
-  /*16: K0 short  */  0,             /*17: eta       */  0,
-  /*18: Lambda    */  1,             /*19: Sigma+    */  1,
-  /*20: Sigma0    */  1,             /*21: Sigma-    */  1,
-  /*22: Xi0       */  1,             /*23: Xi-       */  1,
-  /*24: Omega-    */  3,             /*25: Antineutrn*/  1,
-  /*26: Antilambda*/  1,             /*27: Antisigma-*/  1,
-  /*28: Antisigma0*/  1,             /*29: Antisigma+*/  1,
-  /*30: Antixi0   */  1,             /*31: Antixi+   */  1,
-  /*32: Antiomega+*/  3,             /*33: File      */  0,
-  /*34: Delta0    */  3,             /*35: Delta++   */  3,
-  /*36: Delta+    */  3,             /*37: Delta-    */  3,
-  /*38: NP11+     */  1,             /*39: ND13+     */  3,
-  /*40: NS11+     */  1,             /*41: rho0      */  2,
-  /*42: rho+      */  2,             /*43: rho-      */  2,
-  /*44: NULL      */  0,             /*45: Deuteron  */  2,
-  /*46: Tritium   */  1,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  1,
-  /*50: dimuon    */  2,             /*51: dilepton  */  2,
-  /*52: omega     */  2,             /*53: eta'      */  0,
-  /*54: sigma     */  0,             /*55: phi       */  2,
-  /*56: Delta0*P33*/  3,             /*57: Delta++ *P33*/3,
-  /*58: Delta+*P33*/  3,             /*59: Delta- *P33 */3,
-  /*60: Delta0*S31*/  1,             /*61: Delta++ *S31*/1,
-  /*62: Delta+*S31*/  1,             /*63: Delta- *S31 */1,
-  /*64: NP110     */  1,             /*65: ND130     */  3,
-  /*66: NS110     */  1,             /*67: J/Psi     */  2,
-  /*68: Psi'      */  2,             /*69: pn        */  0
+  /* 0: dummy      */  0,             /* 1: Photon    */  2,
+  /* 2: Positron   */  1,             /* 3: Electron  */  1,
+  /* 4: Neutrino   */  1,             /* 5: mu+       */  1,
+  /* 6: mu-        */  1,             /* 7: pi0       */  0,
+  /* 8: pi+        */  0,             /* 9: pi-       */  0,
+  /*10: K0 long    */  0,             /*11: K+        */  0,
+  /*12: K-         */  0,             /*13: Neutron   */  1,
+  /*14: Proton     */  1,             /*15: Antiproton*/  1,
+  /*16: K0 short   */  0,             /*17: eta       */  0,
+  /*18: Lambda     */  1,             /*19: Sigma+    */  1,
+  /*20: Sigma0     */  1,             /*21: Sigma-    */  1,
+  /*22: Xi0        */  1,             /*23: Xi-       */  1,
+  /*24: Omega-     */  3,             /*25: Antineutrn*/  1,
+  /*26: Antilambda */  1,             /*27: Antisigma-*/  1,
+  /*28: Antisigma0 */  1,             /*29: Antisigma+*/  1,
+  /*30: Antixi0    */  1,             /*31: Antixi+   */  1,
+  /*32: Antiomega+ */  3,             /*33: File      */  0,
+  /*34: Delta0     */  3,             /*35: Delta++   */  3,
+  /*36: Delta+     */  3,             /*37: Delta-    */  3,
+  /*38: NP11+      */  1,             /*39: ND13+     */  3,
+  /*40: NS11+      */  1,             /*41: rho0      */  2,
+  /*42: rho+       */  2,             /*43: rho-      */  2,
+  /*44: NULL       */  0,             /*45: Deuteron  */  2,
+  /*46: Tritium    */  1,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  1,
+  /*50: dimuon     */  2,             /*51: dilepton  */  2,
+  /*52: omega      */  2,             /*53: eta'      */  0,
+  /*54: sigma      */  0,             /*55: phi       */  2,
+  /*56: Delta0*P33 */  3,             /*57: Delta++ *P33*/3,
+  /*58: Delta+*P33 */  3,             /*59: Delta- *P33 */3,
+  /*60: Delta0*S31 */  1,             /*61: Delta++ *S31*/1,
+  /*62: Delta+*S31 */  1,             /*63: Delta- *S31 */1,
+  /*64: NP110      */  1,             /*65: ND130     */  3,
+  /*66: NS110      */  1,             /*67: J/Psi     */  2,
+  /*68: Psi'       */  2,             /*69: pn        */  0,
+  /*70: Hypertriton*/  1,             /*71: He4_3749  */  0
 };
 
 // Parity (+/-1, 0 if irrelevant)
 const int PStdData::PARITY[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */ -1,
-  /* 2: Positron  */  0,             /* 3: Electron  */  0,
-  /* 4: Neutrino  */  0,             /* 5: mu+       */  0,
-  /* 6: mu-       */  0,             /* 7: pi0       */ -1,
-  /* 8: pi+       */ -1,             /* 9: pi-       */ -1,
-  /*10: K0 long   */ -1,             /*11: K+        */ -1,
-  /*12: K-        */ -1,             /*13: Neutron   */  1,
-  /*14: Proton    */  1,             /*15: Antiproton*/ -1,
-  /*16: K0 short  */ -1,             /*17: eta       */ -1,
-  /*18: Lambda    */  1,             /*19: Sigma+    */  1,
-  /*20: Sigma0    */  1,             /*21: Sigma-    */  1,
-  /*22: Xi0       */  1,             /*23: Xi-       */  1,
-  /*24: Omega-    */  1,             /*25: Antineutrn*/ -1,
-  /*26: Antilambda*/ -1,             /*27: Antisigma-*/ -1,
-  /*28: Antisigma0*/ -1,             /*29: Antisigma+*/ -1,
-  /*30: Antixi0   */ -1,             /*31: Antixi+   */ -1,
-  /*32: Antiomega+*/ -1,             /*33: File      */  0,
-  /*34: Delta0    */  1,             /*35: Delta++   */  1,
-  /*36: Delta+    */  1,             /*37: Delta-    */  1,
-  /*38: NP11+     */  1,             /*39: ND13+     */ -1,
-  /*40: NS11+     */ -1,             /*41: rho0      */ -1,
-  /*42: rho+      */ -1,             /*43: rho-      */ -1,
-  /*44: NULL      */  0,             /*45: Deuteron  */  0,
-  /*46: Tritium   */  0,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  0,
-  /*50: dimuon    */ -1,             /*51: dilepton  */ -1,
-  /*52: omega     */ -1,             /*53: eta'      */ -1,
-  /*54: sigma     */  1,             /*55: phi       */ -1,
-  /*56: Delta0*P33*/  1,             /*57: Delta++ *P33*/1,
-  /*58: Delta+*P33*/  1,             /*59: Delta- *P33 */1,
-  /*60: Delta0*S31*/ -1,             /*61: Delta++ *S31*/-1,
-  /*62: Delta+*S31*/ -1,             /*63: Delta- *S31 */-1,
-  /*64: NP110     */  1,             /*65: ND130     */ -1,
-  /*66: NS110     */ -1,             /*67: J/Psi     */ -1,
-  /*68: Psi'      */ -1,             /*69: pn        */  1
+  /* 0: dummy      */  0,             /* 1: Photon    */ -1,
+  /* 2: Positron   */  0,             /* 3: Electron  */  0,
+  /* 4: Neutrino   */  0,             /* 5: mu+       */  0,
+  /* 6: mu-        */  0,             /* 7: pi0       */ -1,
+  /* 8: pi+        */ -1,             /* 9: pi-       */ -1,
+  /*10: K0 long    */ -1,             /*11: K+        */ -1,
+  /*12: K-         */ -1,             /*13: Neutron   */  1,
+  /*14: Proton     */  1,             /*15: Antiproton*/ -1,
+  /*16: K0 short   */ -1,             /*17: eta       */ -1,
+  /*18: Lambda     */  1,             /*19: Sigma+    */  1,
+  /*20: Sigma0     */  1,             /*21: Sigma-    */  1,
+  /*22: Xi0        */  1,             /*23: Xi-       */  1,
+  /*24: Omega-     */  1,             /*25: Antineutrn*/ -1,
+  /*26: Antilambda */ -1,             /*27: Antisigma-*/ -1,
+  /*28: Antisigma0 */ -1,             /*29: Antisigma+*/ -1,
+  /*30: Antixi0    */ -1,             /*31: Antixi+   */ -1,
+  /*32: Antiomega+ */ -1,             /*33: File      */  0,
+  /*34: Delta0     */  1,             /*35: Delta++   */  1,
+  /*36: Delta+     */  1,             /*37: Delta-    */  1,
+  /*38: NP11+      */  1,             /*39: ND13+     */ -1,
+  /*40: NS11+      */ -1,             /*41: rho0      */ -1,
+  /*42: rho+       */ -1,             /*43: rho-      */ -1,
+  /*44: NULL       */  0,             /*45: Deuteron  */  0,
+  /*46: Tritium    */  0,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  0,
+  /*50: dimuon     */ -1,             /*51: dilepton  */ -1,
+  /*52: omega      */ -1,             /*53: eta'      */ -1,
+  /*54: sigma      */  1,             /*55: phi       */ -1,
+  /*56: Delta0*P33 */  1,             /*57: Delta++ *P33*/1,
+  /*58: Delta+*P33 */  1,             /*59: Delta- *P33 */1,
+  /*60: Delta0*S31 */ -1,             /*61: Delta++ *S31*/-1,
+  /*62: Delta+*S31 */ -1,             /*63: Delta- *S31 */-1,
+  /*64: NP110      */  1,             /*65: ND130     */ -1,
+  /*66: NS110      */ -1,             /*67: J/Psi     */ -1,
+  /*68: Psi'       */ -1,             /*69: pn        */  1,
+  /*70: Hypertriton*/  0,             /*71: He4_3749  */  0
 };
 
 // 2 x isospin (also 0 if irrelevant)
 const int PStdData::ISPIN[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  0,
-  /* 2: Positron  */  0,             /* 3: Electron  */  0,
-  /* 4: Neutrino  */  0,             /* 5: mu+       */  0,
-  /* 6: mu-       */  0,             /* 7: pi0       */  2,
-  /* 8: pi+       */  2,             /* 9: pi-       */  2,
-  /*10: K0 long   */  1,             /*11: K+        */  1,
-  /*12: K-        */  1,             /*13: Neutron   */  1,
-  /*14: Proton    */  1,             /*15: Antiproton*/  1,
-  /*16: K0 short  */  1,             /*17: eta       */  0,
-  /*18: Lambda    */  0,             /*19: Sigma+    */  2,
-  /*20: Sigma0    */  2,             /*21: Sigma-    */  2,
-  /*22: Xi0       */  1,             /*23: Xi-       */  1,
-  /*24: Omega-    */  0,             /*25: Antineutrn*/  0,
-  /*26: Antilambda*/  0,             /*27: Antisigma-*/  2,
-  /*28: Antisigma0*/  2,             /*29: Antisigma+*/  2,
-  /*30: Antixi0   */  1,             /*31: Antixi+   */  1,
-  /*32: Antiomega+*/  0,             /*33: File      */  0,
-  /*34: Delta0    */  3,             /*35: Delta++   */  3,
-  /*36: Delta+    */  3,             /*37: Delta-    */  3,
-  /*38: NP11+     */  1,             /*39: ND13+     */  1,
-  /*40: NS11+     */  1,             /*41: rho0      */  2,
-  /*42: rho+      */  2,             /*43: rho-      */  2,
-  /*44: NULL      */  0,             /*45: Deuteron  */  0,
-  /*46: Tritium   */  0,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  0,
-  /*50: dimuon    */  0,             /*51: dilepton  */  0,
-  /*52: omega     */  0,             /*53: eta'      */  0,
-  /*54: sigma     */  0,             /*55: phi       */  0,
-  /*56: Delta0*P33*/  3,             /*57: Delta++ *P33*/3,
-  /*58: Delta+*P33*/  3,             /*59: Delta- *P33 */3,
-  /*60: Delta0*S31*/  3,             /*61: Delta++ *S31*/3,
-  /*62: Delta+*S31*/  3,             /*63: Delta- *S31 */3,
-  /*64: NP110     */  1,             /*65: ND130     */  1,
-  /*66: NS110     */  1,             /*67: J/Psi     */  0,
-  /*68: Psi'      */  0,             /*69: pn        */  0
+  /* 0: dummy      */  0,             /* 1: Photon    */  0,
+  /* 2: Positron   */  0,             /* 3: Electron  */  0,
+  /* 4: Neutrino   */  0,             /* 5: mu+       */  0,
+  /* 6: mu-        */  0,             /* 7: pi0       */  2,
+  /* 8: pi+        */  2,             /* 9: pi-       */  2,
+  /*10: K0 long    */  1,             /*11: K+        */  1,
+  /*12: K-         */  1,             /*13: Neutron   */  1,
+  /*14: Proton     */  1,             /*15: Antiproton*/  1,
+  /*16: K0 short   */  1,             /*17: eta       */  0,
+  /*18: Lambda     */  0,             /*19: Sigma+    */  2,
+  /*20: Sigma0     */  2,             /*21: Sigma-    */  2,
+  /*22: Xi0        */  1,             /*23: Xi-       */  1,
+  /*24: Omega-     */  0,             /*25: Antineutrn*/  0,
+  /*26: Antilambda */  0,             /*27: Antisigma-*/  2,
+  /*28: Antisigma0 */  2,             /*29: Antisigma+*/  2,
+  /*30: Antixi0    */  1,             /*31: Antixi+   */  1,
+  /*32: Antiomega+ */  0,             /*33: File      */  0,
+  /*34: Delta0     */  3,             /*35: Delta++   */  3,
+  /*36: Delta+     */  3,             /*37: Delta-    */  3,
+  /*38: NP11+      */  1,             /*39: ND13+     */  1,
+  /*40: NS11+      */  1,             /*41: rho0      */  2,
+  /*42: rho+       */  2,             /*43: rho-      */  2,
+  /*44: NULL       */  0,             /*45: Deuteron  */  0,
+  /*46: Tritium    */  0,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  0,
+  /*50: dimuon     */  0,             /*51: dilepton  */  0,
+  /*52: omega      */  0,             /*53: eta'      */  0,
+  /*54: sigma      */  0,             /*55: phi       */  0,
+  /*56: Delta0*P33 */  3,             /*57: Delta++ *P33*/3,
+  /*58: Delta+*P33 */  3,             /*59: Delta- *P33 */3,
+  /*60: Delta0*S31 */  3,             /*61: Delta++ *S31*/3,
+  /*62: Delta+*S31 */  3,             /*63: Delta- *S31 */3,
+  /*64: NP110      */  1,             /*65: ND130     */  1,
+  /*66: NS110      */  1,             /*67: J/Psi     */  0,
+  /*68: Psi'       */  0,             /*69: pn        */  0,
+  /*70: Hypertriton*/  0,             /*71: He4_3749  */  0
 };
 
 // Number of decay modes per particle
 const int PStdData::NMODES[mnpar]={
-  /* 0: dummy     */  0,             /* 1: Photon    */  0,
-  /* 2: Positron  */  0,             /* 3: Electron  */  0,
-  /* 4: Neutrino  */  0,             /* 5: mu+       */  1,
-  /* 6: mu-       */  1,             /* 7: pi0       */  2,
-  /* 8: pi+       */  1,             /* 9: pi-       */  1,
-  /*10: K0 long   */  6,             /*11: K+        */  6,
-  /*12: K-        */  6,             /*13: Neutron   */  1,
-  /*14: Proton    */  0,             /*15: Antiproton*/  0,
-  /*16: K0 short  */  3,             /*17: eta       */  8,
-  /*18: Lambda    */  3,             /*19: Sigma+    */  0,
-  /*20: Sigma0    */  0,             /*21: Sigma-    */  0,
-  /*22: Xi0       */  0,             /*23: Xi-       */  0,
-  /*24: Omega-    */  0,             /*25: Antineutrn*/  1,
-  /*26: Antilambda*/  0,             /*27: Antisigma-*/  0,
-  /*28: Antisigma0*/  0,             /*29: Antisigma+*/  0,
-  /*30: Antixi0   */  0,             /*31: Antixi+   */  0,
-  /*32: Antiomega+*/  0,             /*33: File      */  0,
-  /*34: Delta0    */  4,             /*35: Delta++   */  1,
-  /*36: Delta+    */  4,             /*37: Delta-    */  1,
-  /*38: NP11+     */ 10,             /*39: ND13+     */ 10,
-  /*40: NS11+     */ 13,             /*41: rho0      */  3,
-  /*42: rho+      */  1,             /*43: rho-      */  1,
-  /*44: NULL      */  0,             /*45: Deuteron  */  0,
-  /*46: Tritium   */  0,             /*47: Alpha     */  0,
-  /*48: NULL      */  0,             /*49: He3       */  0,
-  /*50: dimuon    */  1,             /*51: dilepton  */  1,
-  /*52: omega     */  7,             /*53: eta'      */  7,
-  /*54: sigma     */  3,             /*55: phi       */  8,
-  /*56: Delta0*P33*/ 10,             /*57: Delta++ *P33*/5,
-  /*58: Delta+*P33*/ 10,             /*59: Delta- *P33 */5,
-  /*60: Delta0*S31*/  8,             /*61: Delta++ *S31*/4,
-  /*62: Delta+*S31*/  8,             /*63: Delta- *S31 */4,
-  /*64: NP110     */ 10,             /*65: ND130     */ 10,
-  /*66: NS110     */ 13,             /*67: J/Psi     */  8,
-  /*68: Psi'      */  8,             /*69: pn        */  2
+  /* 0: dummy      */  0,             /* 1: Photon    */  0,
+  /* 2: Positron   */  0,             /* 3: Electron  */  0,
+  /* 4: Neutrino   */  0,             /* 5: mu+       */  1,
+  /* 6: mu-        */  1,             /* 7: pi0       */  2,
+  /* 8: pi+        */  1,             /* 9: pi-       */  1,
+  /*10: K0 long    */  6,             /*11: K+        */  6,
+  /*12: K-         */  6,             /*13: Neutron   */  1,
+  /*14: Proton     */  0,             /*15: Antiproton*/  0,
+  /*16: K0 short   */  3,             /*17: eta       */  8,
+  /*18: Lambda     */  3,             /*19: Sigma+    */  0,
+  /*20: Sigma0     */  1,             /*21: Sigma-    */  0,
+  /*22: Xi0        */  0,             /*23: Xi-       */  1,
+  /*24: Omega-     */  0,             /*25: Antineutrn*/  1,
+  /*26: Antilambda */  0,             /*27: Antisigma-*/  0,
+  /*28: Antisigma0 */  0,             /*29: Antisigma+*/  0,
+  /*30: Antixi0    */  0,             /*31: Antixi+   */  0,
+  /*32: Antiomega+ */  0,             /*33: File      */  0,
+  /*34: Delta0     */  4,             /*35: Delta++   */  1,
+  /*36: Delta+     */  4,             /*37: Delta-    */  1,
+  /*38: NP11+      */ 10,             /*39: ND13+     */ 10,
+  /*40: NS11+      */ 13,             /*41: rho0      */  3,
+  /*42: rho+       */  1,             /*43: rho-      */  1,
+  /*44: NULL       */  0,             /*45: Deuteron  */  0,
+  /*46: Tritium    */  0,             /*47: Alpha     */  0,
+  /*48: NULL       */  0,             /*49: He3       */  0,
+  /*50: dimuon     */  1,             /*51: dilepton  */  1,
+  /*52: omega      */  7,             /*53: eta'      */  7,
+  /*54: sigma      */  3,             /*55: phi       */  8,
+  /*56: Delta0*P33 */ 10,             /*57: Delta++ *P33*/5,
+  /*58: Delta+*P33 */ 10,             /*59: Delta- *P33 */5,
+  /*60: Delta0*S31 */  8,             /*61: Delta++ *S31*/4,
+  /*62: Delta+*S31 */  8,             /*63: Delta- *S31 */4,
+  /*64: NP110      */ 10,             /*65: ND130     */ 10,
+  /*66: NS110      */ 13,             /*67: J/Psi     */  8,
+  /*68: Psi'       */  8,             /*69: pn        */  2,
+  /*70: Hypertriton*/  2,             /*71: He4_3749  */  1
 };
 
 // Static branching ratios:
@@ -781,6 +792,10 @@ double PStdData::BRR[mnmodes]={
   0.639,         // id=18 Lambda --> p + pi-
   0.358,         // id=18 Lambda --> n + pi0
   0.0018,        // id=18 Lambda --> n + photon
+  // Sigma0, 1 channel
+  1.,            // id=20 Sigma0 --> Lambda + photon
+  // Xi-, 1 channel
+  1.,            // id=23 Xi- --> Lambda + pi-
   // anti_n, 1 channel
   1.,            // id=25 anti_n --> anti_p + e+ + neutrino
   // D0, 4 channels
@@ -991,8 +1006,13 @@ double PStdData::BRR[mnmodes]={
   0.0030,        // id=68 Psi'  --> 3pi+ + 3pi- + pi0
   0.4554,        // id=68 Psi'  --> junk
   // pn, 2 channels
-  0.999,        // id=69 pn  --> dilepton + p + n
-  0.001         // id=69 pn  --> photon + p + n
+  0.999,         // id=69 pn  --> dilepton + p + n
+  0.001,         // id=69 pn  --> photon + p + n
+  // Hypertriton, 2 channels
+  0.40,          // id=70 Hypertroton --> d + p + pi-
+  0.25,          // id=70 Hypertroton --> He3 + pi-
+  // He4_3749, 1 channel
+  1.             // id=71 He4_3749 --> t + p
 };
 
 // Decay-mode nomenclature:
@@ -1049,6 +1069,10 @@ const char *PStdData::MODE[mnmodes]={
   "9014",           // id=18 Lambda --> p + pi-
   "7013",           // id=18 Lambda --> n + pi0
   "1013",           // id=18 Lambda --> n + photon
+  // Sigma0, 1 channel
+  "1018",           // id=20 Sigma0 --> Lambda + photon
+  // Xi-, 1 channel
+  "9018",           // id=23 Xi- --> Lambda + pi-
   // anti_n, 1 channel
   "4002015",        // id=25 anti_n --> anti_p + e+ + neutrino
   // D0, 4 channels
@@ -1260,7 +1284,12 @@ const char *PStdData::MODE[mnmodes]={
   "4004",           // id=68 Psi'  --> junk (=2 neutrinos as a placeholder)
   // pn, 2 channels
   "51013014",       // id=69 pn  --> dilepton + p + n
-  "1013014"         // id=69 pn  --> photon + p + n
+  "1013014",        // id=69 pn  --> photon + p + n
+  // Hypertriton, 2 channels
+  "9014045",        // id=70 Hypertroton --> d + p + pi-
+  "9049",           // id=70 Hypertroton --> He3 + pi-
+  // He4_3749, 1 channel
+  "14046"           // id=71 He4_3749 --> t + p
 };
 
 // Decay-mode text description
@@ -1304,6 +1333,8 @@ const char *PStdData::DESCRIPTION[mnmodes]={
   "Lambda --> p + pi-",
   "Lambda --> n + pi0",
   "Lambda --> n + photon",
+  "Sigma0 --> Lambda + photon",
+  "Xi- --> Lambda + pi-",
   "anti_n --> anti_p + e+ + neutrino",
   "Delta0 --> p + pi-",
   "Delta0 --> n + pi0",
@@ -1484,7 +1515,10 @@ const char *PStdData::DESCRIPTION[mnmodes]={
   "Psi'  --> 3pi+ + 3pi- + pi0",
   "Psi'  --> junk",
   "pn --> dilepton + p + n",
-  "pn --> photon + p + n"
+  "pn --> photon + p + n",
+  "Hypertroton --> d + p + pi-",
+  "Hypertroton --> He3 + pi-",
+  "He4_3749 --> t + p"
 };
 
 
