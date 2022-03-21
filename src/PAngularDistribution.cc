@@ -77,7 +77,7 @@ PAngularDistribution::PAngularDistribution(const Char_t *id,const  Char_t *de) :
     fParErrors.resize(fNpar);
     fParMin.resize(fNpar);
     fParMax.resize(fNpar);
-    fParams = new TF1Parameters(fNpar);
+    fParams = unique_ptr<TF1Parameters>(new TF1Parameters(fNpar));
    
     fParErrors[0]  = 0;
     fParMin[0]     = 0;

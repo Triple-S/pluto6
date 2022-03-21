@@ -180,7 +180,7 @@ PChannelModel::PChannelModel(const Char_t *id, const Char_t *de, Int_t key) :
     fParErrors.resize(fNpar);
     fParMin.resize(fNpar);
     fParMax.resize(fNpar);
-    fParams = new TF1Parameters(fNpar);
+    fParams = unique_ptr<TF1Parameters>(new TF1Parameters(fNpar));
     for (int i = 0; i < fNpar; i++) {
 	fParErrors[i]  = 0;
 	fParMin[i]     = 0;
