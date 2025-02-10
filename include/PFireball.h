@@ -112,8 +112,8 @@ class PFireball: public PParticle {
 	v2 = b;
     }
 
-    Double_t AvApart(Double_t ap, Double_t at, Double_t bn, Double_t bx);
-    Double_t AvApart(Double_t ap, Double_t at) {
+    virtual Double_t AvApart(Double_t ap, Double_t at, Double_t bn, Double_t bx);
+    virtual Double_t AvApart(Double_t ap, Double_t at) {
 	return (ap*pow(at,0.667) + at*pow(ap,0.667))
 	    /pow((pow(ap,0.333)+pow(at,0.333)),2);  // average Apart
     }
@@ -222,8 +222,8 @@ class PFireball: public PParticle {
 
     double sampleThetaCM() {return fA->GetRandom();}
     double sampleMt()      {return fMt->GetRandom();}
-    void samplePartCM(double &px, double &py, double &pz, double &E, int didx);
-    float sampleB() const ;
+    virtual void samplePartCM(double &px, double &py, double &pz, double &E, int didx);
+    virtual float sampleB() const ;
     int sampleNProd();
     int sampleNProd(float b);
     int getLastNProd() {return nProd;}
